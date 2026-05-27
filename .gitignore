@@ -3,3 +3,5 @@ venv/
 output/
 #runs/
 TestVideo/
+
+videoforclassification/
