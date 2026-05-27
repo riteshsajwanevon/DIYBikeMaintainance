@@ -1,13 +1,13 @@
 from ultralytics import YOLO
 import cv2
 import numpy as np
-
+#Finding oil Level using open cv
 # ==========================================
 # LOAD MODEL
 # ==========================================
 
 model = YOLO(
-    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\train\bike_parts_detection-7\weights\best.pt"
+    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt"
 )
 
 # ==========================================
@@ -235,14 +235,14 @@ while cap.isOpened():
                     # OIL LEVEL CLASSIFICATION
                     # ==========================================
 
-                    # if fill_ratio < 0.30:
-                    #     oil_level = "LOW"
-                    #
-                    # elif fill_ratio < 0.5:
-                    #     oil_level = "NORMAL"
-                    #
-                    # else:
-                    #     oil_level = "HIGH"
+                    if fill_ratio < 0.30:
+                        oil_level = "LOW"
+
+                    elif fill_ratio < 0.5:
+                        oil_level = "NORMAL"
+
+                    else:
+                        oil_level = "HIGH"
 
                     # Draw oil height box
                     cv2.rectangle(
@@ -263,15 +263,15 @@ while cap.isOpened():
         # DISPLAY OIL LEVEL
         # ==========================================
 
-        # cv2.putText(
-        #     annotated_frame,
-        #     f"Oil Level: {oil_level}",
-        #     (x1, y1 - 10),
-        #     cv2.FONT_HERSHEY_SIMPLEX,
-        #     0.7,
-        #     (0, 255, 0),
-        #     2
-        # )
+        cv2.putText(
+            annotated_frame,
+            f"Oil Level: {oil_level}",
+            (x1, y1 - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (0, 255, 0),
+            2
+        )
 
         # ==========================================
         # SHOW ROI
@@ -283,10 +283,10 @@ while cap.isOpened():
     # SHOW FINAL FRAME
     # ==========================================
 
-    # cv2.imshow(
-    #     "Oil Level Detection",
-    #     annotated_frame
-    # )
+    cv2.imshow(
+        "Oil Level Detection",
+        annotated_frame
+    )
 
     # Press q to quit
     if cv2.waitKey(20) & 0xFF == ord('q'):

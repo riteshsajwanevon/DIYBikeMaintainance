@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['engine', 'oil_cap', 'oil_marker']
+
+roboflow:
+  workspace: riteshs-workspace-yyuup
+  project: riteshs-workspace-yyuup
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/riteshs-workspace-yyuup/riteshs-workspace-yyuup/dataset
