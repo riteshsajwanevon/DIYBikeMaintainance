@@ -1,11 +1,14 @@
 from ultralytics import YOLO
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Load YOLO11 nano model
 model = YOLO("yolo11n.pt")
 
 # Train the model
 model.train(
-    data=r"E:\Project2\Code\AR-DIYcode\dataset\detection\data.yaml",
+    data=str(BASE_DIR / "dataset" / "detection" / "data.yaml"),
     epochs=100,
     imgsz=640,
     batch=4,

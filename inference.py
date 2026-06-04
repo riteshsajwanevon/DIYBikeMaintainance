@@ -1,17 +1,20 @@
 from ultralytics import YOLO
 import cv2
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # Load trained model
-model = YOLO(r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt")
+model = YOLO(BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt")
 
 # Input video
-video_path = r"E:\Project2\Code\AR-DIYcode\TestVideo\9.mp4"
+video_path = BASE_DIR / "TestVideo" / "9.mp4"
 
 # Output video
-output_path = r"E:\Project2\Code\AR-DIYcode\output\9.mp4"
+output_path = BASE_DIR / "output" / "9.mp4"
 
 # Open video
-cap = cv2.VideoCapture(video_path)
+cap = cv2.VideoCapture(str(video_path))
 
 # Get video properties
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -20,7 +23,7 @@ fps = int(cap.get(cv2.CAP_PROP_FPS))
 
 # Video writer
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+out = cv2.VideoWriter(str(output_path), fourcc, fps, (width, height))
 
 while cap.isOpened():
 

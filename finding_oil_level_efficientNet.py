@@ -1,16 +1,18 @@
 from ultralytics import YOLO
 import cv2
+from pathlib import Path
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
 
+BASE_DIR = Path(__file__).resolve().parent
 
 # =========================================================
 # LOAD YOLO MODEL
 # =========================================================
 
 yolo_model = YOLO(
-    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt"
+    BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt"
 )
 
 # =========================================================
@@ -28,7 +30,7 @@ classifier.classifier[1] = nn.Linear(
 
 classifier.load_state_dict(
     torch.load(
-        r"E:\Project2\Code\AR-DIYcode\Model_Training\efficientNet\best_oil_classifier.pth",
+        BASE_DIR / "Model_Training" / "efficientNet" / "best_oil_classifier.pth",
         map_location="cpu"
     )
 )
@@ -49,9 +51,9 @@ transform = transforms.Compose([
 # INPUT VIDEO
 # =========================================================
 
-video_path = r"E:\Project2\Code\AR-DIYcode\TestVideo\12.mp4"
+video_path = BASE_DIR / "TestVideo" / "12.mp4"
 
-cap = cv2.VideoCapture(video_path)
+cap = cv2.VideoCapture(str(video_path))
 
 CLASS_NAMES = yolo_model.names
 

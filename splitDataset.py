@@ -1,7 +1,8 @@
-import os
 import random
 import shutil
 from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # =========================================================
 # DATASET PATH
@@ -12,16 +13,16 @@ from pathlib import Path
 #    images/
 #    labels/
 
-dataset_path = r"E:\Project2\Code\AR-DIYcode\dataset\detection\dataset"
+dataset_path = BASE_DIR / "dataset" / "detection" / "dataset"
 
-images_path = os.path.join(dataset_path, "images")
-labels_path = os.path.join(dataset_path, "labels")
+images_path = dataset_path / "images"
+labels_path = dataset_path / "labels"
 
 # =========================================================
 # OUTPUT SPLIT FOLDER
 # =========================================================
 
-output_path = r"E:\Project2\Code\AR-DIYcode\dataset\detection"
+output_path = BASE_DIR / "dataset" / "detection"
 
 # =========================================================
 # SPLIT RATIOS
@@ -39,15 +40,9 @@ splits = ["train", "val", "test"]
 
 for split in splits:
 
-    os.makedirs(
-        os.path.join(output_path, split, "images"),
-        exist_ok=True
-    )
+    (output_path / split / "images").mkdir(parents=True, exist_ok=True)
 
-    os.makedirs(
-        os.path.join(output_path, split, "labels"),
-        exist_ok=True
-    )
+    (output_path / split / "labels").mkdir(parents=True, exist_ok=True)
 
 # =========================================================
 # GET IMAGE FILES
@@ -56,8 +51,8 @@ for split in splits:
 image_extensions = [".jpg", ".jpeg", ".png"]
 
 image_files = [
-    f for f in os.listdir(images_path)
-    if Path(f).suffix.lower() in image_extensions
+    f for f in images_path.iterdir()
+    if f.suffix.lower() in image_extensions
 ]
 
 # =========================================================
@@ -97,38 +92,25 @@ def copy_files(file_list, split_name):
 
     for image_file in file_list:
 
-        image_name = Path(image_file).stem
+        image_name = image_file.stem
 
         # Image path
-        src_image = os.path.join(images_path, image_file)
+        src_image = image_file
 
         # Corresponding label
-        src_label = os.path.join(
-            labels_path,
-            image_name + ".txt"
-        )
+        src_label = labels_path / (image_name + ".txt")
 
         # Destination image
-        dst_image = os.path.join(
-            output_path,
-            split_name,
-            "images",
-            image_file
-        )
+        dst_image = output_path / split_name / "images" / image_file.name
 
         # Destination label
-        dst_label = os.path.join(
-            output_path,
-            split_name,
-            "labels",
-            image_name + ".txt"
-        )
+        dst_label = output_path / split_name / "labels" / (image_name + ".txt")
 
         # Copy image
         shutil.copy2(src_image, dst_image)
 
         # Copy label if exists
-        if os.path.exists(src_label):
+        if src_label.exists():
             shutil.copy2(src_label, dst_label)
 
         saved += 1
