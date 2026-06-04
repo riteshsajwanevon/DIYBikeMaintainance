@@ -3,12 +3,15 @@ import torch.nn as nn
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 # ============================================
 # SETTINGS
 # ============================================
 
-DATASET_PATH = r"E:\Project2\Code\AR-DIYcode\dataset\classification"
+DATASET_PATH = BASE_DIR / "dataset" / "classification"
 
 BATCH_SIZE = 16
 EPOCHS = 20
@@ -42,12 +45,12 @@ val_transform = transforms.Compose([
 
 
 train_dataset = datasets.ImageFolder(
-    root=os.path.join(DATASET_PATH, "train"),
+    root=str(DATASET_PATH / "train"),
     transform=train_transform
 )
 
 val_dataset = datasets.ImageFolder(
-    root=os.path.join(DATASET_PATH, "valid"),
+    root=str(DATASET_PATH / "valid"),
     transform=val_transform
 )
 

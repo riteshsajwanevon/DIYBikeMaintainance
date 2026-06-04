@@ -1,16 +1,17 @@
 import cv2
-import os
 from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # =========================
 # INPUTS
 # =========================
 
 # Folder containing all videos
-video_folder = r'E:/project2/AR-DIYcode/EngineTopUPVideo'
+video_folder = BASE_DIR / "EngineTopUPVideo"
 
 # Output dataset folder
-output_folder = 'dataset'
+output_folder = BASE_DIR / "dataset"
 
 # Time interval (seconds)
 save_interval_sec = 0.5
@@ -22,7 +23,7 @@ video_extensions = ['*.mp4', '*.avi', '*.mov', '*.mkv']
 # CREATE OUTPUT FOLDER
 # =========================
 
-os.makedirs(output_folder, exist_ok=True)
+output_folder.mkdir(parents=True, exist_ok=True)
 
 # =========================
 # GET ALL VIDEO FILES
@@ -75,9 +76,9 @@ for video_path in video_files:
 
             filename = f"frame_{global_saved_count:06d}.jpg"
 
-            save_path = os.path.join(output_folder, filename)
+            save_path = output_folder / filename
 
-            cv2.imwrite(save_path, frame)
+            cv2.imwrite(str(save_path), frame)
 
             saved_count += 1
             global_saved_count += 1

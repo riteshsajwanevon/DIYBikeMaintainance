@@ -1,29 +1,30 @@
 from ultralytics import YOLO
 import cv2
-import os
 from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Load trained model
 model = YOLO(
-    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt"
+    BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt"
 )
 
 # Input videos folder
-input_folder = r"E:\Project2\Code\AR-DIYcode\TestVideo"
+input_folder = BASE_DIR / "TestVideo"
 
 # Output folder
-output_folder = r"E:\Project2\Code\AR-DIYcode\output"
+output_folder = BASE_DIR / "output"
 
 # Create output folder if not exists
-os.makedirs(output_folder, exist_ok=True)
+output_folder.mkdir(parents=True, exist_ok=True)
 
 # Supported video formats
 video_extensions = [".mp4", ".avi", ".mov", ".mkv"]
 
 # Get all video files
 video_files = [
-    f for f in os.listdir(input_folder)
-    if Path(f).suffix.lower() in video_extensions
+    f for f in input_folder.iterdir()
+    if f.suffix.lower() in video_extensions
 ]
 
 print(f"Found {len(video_files)} videos")
@@ -31,15 +32,15 @@ print(f"Found {len(video_files)} videos")
 # Process each video
 for video_name in video_files:
 
-    video_path = os.path.join(input_folder, video_name)
+    video_path = video_name
 
     # Output path
-    output_path = os.path.join(output_folder, f"output_{video_name}")
+    output_path = output_folder / f"output_{video_name.name}"
 
-    print(f"\nProcessing: {video_name}")
+    print(f"\nProcessing: {video_name.name}")
 
     # Open video
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(str(video_path))
 
     # Get video properties
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -48,7 +49,7 @@ for video_name in video_files:
 
     # Video writer
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
+    out = cv2.VideoWriter(str(output_path), fourcc, fps, (width, height))
 
     frame_count = 0
 
@@ -75,7 +76,7 @@ for video_name in video_files:
 
         # Print progress every 30 frames
         if frame_count % 30 == 0:
-            print(f"{video_name} -> Processed {frame_count} frames")
+            print(f"{video_name.name} -> Processed {frame_count} frames")
 
         # Press q to stop
         if cv2.waitKey(1) & 0xFF == ord('q'):

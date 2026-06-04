@@ -1,25 +1,27 @@
 from ultralytics import YOLO
 import cv2
-import os
 from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
 # detects oil_marker using yolo and save it in a folder
 
 # =========================================================
 # LOAD YOLO MODEL
 # =========================================================
 model = YOLO(
-    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt"
+    BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt"
 )
 
 # =========================================================
 # INPUT / OUTPUT PATHS
 # =========================================================
-input_folder = r"E:\Project2\Code\AR-DIYcode\videoforclassification"
+input_folder = BASE_DIR / "videoforclassification"
 
 # Folder where cropped oil marker images will be saved
-output_folder = r"E:\Project2\Code\AR-DIYcode\dataset\classification"
+output_folder = BASE_DIR / "dataset" / "classification"
 
-os.makedirs(output_folder, exist_ok=True)
+output_folder.mkdir(parents=True, exist_ok=True)
 
 # =========================================================
 # SETTINGS
@@ -47,8 +49,8 @@ video_extensions = [".mp4", ".avi", ".mov", ".mkv"]
 # GET VIDEO FILES
 # =========================================================
 video_files = [
-    f for f in os.listdir(input_folder)
-    if Path(f).suffix.lower() in video_extensions
+    f for f in input_folder.iterdir()
+    if f.suffix.lower() in video_extensions
 ]
 
 print(f"\nFound {len(video_files)} videos")
@@ -60,12 +62,12 @@ total_saved = 0
 
 for video_name in video_files:
 
-    video_path = os.path.join(input_folder, video_name)
+    video_path = video_name
 
-    print(f"\nProcessing video: {video_name}")
+    print(f"\nProcessing video: {video_path.name}")
 
     # Open video
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(str(video_path))
 
     # Get FPS
     fps = cap.get(cv2.CAP_PROP_FPS)
@@ -164,14 +166,14 @@ for video_name in video_files:
             # SAVE IMAGE
             # =========================================
             save_name = (
-                f"{Path(video_name).stem}"
+                f"{video_path.stem}"
                 f"_frame{frame_count}"
                 f"_img{saved_count}.jpg"
             )
 
-            save_path = os.path.join(output_folder, save_name)
+            save_path = output_folder / save_name
 
-            cv2.imwrite(save_path, roi_resized)
+            cv2.imwrite(str(save_path), roi_resized)
 
             saved_count += 1
             total_saved += 1
@@ -209,7 +211,7 @@ for video_name in video_files:
     # Release video
     cap.release()
 
-    print(f"Saved {saved_count} images from {video_name}")
+    print(f"Saved {saved_count} images from {video_path.name}")
 
 # =========================================================
 # CLEANUP

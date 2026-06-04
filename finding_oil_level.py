@@ -1,22 +1,26 @@
 from ultralytics import YOLO
 import cv2
+from pathlib import Path
 import numpy as np
+
 #Finding oil Level using open cv
+BASE_DIR = Path(__file__).resolve().parent
+
 # ==========================================
 # LOAD MODEL
 # ==========================================
 
 model = YOLO(
-    r"E:\Project2\Code\AR-DIYcode\runs\detect\runs\detect\engine_parts_detection\weights\best.pt"
+    BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt"
 )
 
 # ==========================================
 # INPUT VIDEO
 # ==========================================
 
-video_path = r"E:\Project2\Code\AR-DIYcode\TestVideo\12.mp4"
+video_path = BASE_DIR / "TestVideo" / "12.mp4"
 
-cap = cv2.VideoCapture(video_path)
+cap = cv2.VideoCapture(str(video_path))
 
 CLASS_NAMES = model.names
 
