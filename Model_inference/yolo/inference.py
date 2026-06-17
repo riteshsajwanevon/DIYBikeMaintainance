@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 model = YOLO(BASE_DIR / "runs" / "detect" / "runs" / "detect" / "engine_parts_detection" / "weights" / "best.pt")
 
 # Input video
-video_path = BASE_DIR / "TestVideo" / "9.mp4"
+video_path = BASE_DIR / "Test3.mp4"
 
 # Output video
-output_path = BASE_DIR / "output" / "9.mp4"
+output_path = BASE_DIR / "output" / "Test2.mp4"
 
 # Open video
 cap = cv2.VideoCapture(str(video_path))

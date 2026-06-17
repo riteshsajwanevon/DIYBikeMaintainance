@@ -13,7 +13,8 @@ BASE_DIR = Path(__file__).resolve().parent
 #    images/
 #    labels/
 
-dataset_path = BASE_DIR / "dataset" / "detection" / "dataset"
+# dataset_path = BASE_DIR / "dataset" / "detection" / "dataset"
+dataset_path = BASE_DIR / "dataset1" / "train"
 
 images_path = dataset_path / "images"
 labels_path = dataset_path / "labels"
@@ -22,7 +23,8 @@ labels_path = dataset_path / "labels"
 # OUTPUT SPLIT FOLDER
 # =========================================================
 
-output_path = BASE_DIR / "dataset" / "detection"
+# output_path = BASE_DIR / "dataset" / "detection"
+output_path = BASE_DIR / "dataset1_split"
 
 # =========================================================
 # SPLIT RATIOS

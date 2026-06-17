@@ -1,0 +1,13 @@
+train: train/images
+val: val/images
+test: test/images
+
+nc: 5
+names: ['bike-engine', 'bike-engine-level', 'bike-oil-cap', 'engine-casing-left', 'side-stand']
+
+roboflow:
+  workspace: yashpals-workspace-kmgus
+  project: bike-ar-maintenance
+  version: dataset
+  license: Public Domain
+  url: https://universe.roboflow.com/yashpals-workspace-kmgus/bike-ar-maintenance/dataset/dataset

@@ -51,7 +51,7 @@ transform = transforms.Compose([
 # INPUT VIDEO
 # =========================================================
 
-video_path = BASE_DIR / "TestVideo" / "12.mp4"
+video_path = BASE_DIR / "Test2.mp4"
 
 cap = cv2.VideoCapture(str(video_path))
 
