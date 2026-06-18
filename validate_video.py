@@ -12,7 +12,7 @@ def main():
     print(f"Loading trained model from {weights_path}...")
     model = YOLO(weights_path)
     
-    video_path = "Test1.mp4"
+    video_path = "Test3.mp4"
     if not os.path.exists(video_path):
         print(f"Error: Video {video_path} not found.")
         return
