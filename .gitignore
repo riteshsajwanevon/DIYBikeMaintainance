@@ -4,4 +4,6 @@ output/
 #runs/
 TestVideo/
 
+.zip*
+
 videoforclassification/
