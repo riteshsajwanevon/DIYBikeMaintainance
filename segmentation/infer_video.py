@@ -94,5 +94,5 @@ def test_on_video_custom(video_path):
     print("Video inference finished!")
 
 if __name__ == '__main__':
-    video_to_test = '../Test1.mp4'  
+    video_to_test = '../Test3.mp4'  
     test_on_video_custom(video_to_test)
