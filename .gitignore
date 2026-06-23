@@ -4,6 +4,18 @@ output/
 #runs/
 TestVideo/
 
-.zip*
+*.zip
+*.jpg
+*.jpeg
+*.DS_Store
+*.txt
+*.log
+*.csv
+
+dataset/frames/
+/EngineTopUPVideo/
+segmentation/train/
+segmentation/coco_converted/
+segmentation_split/
 
 videoforclassification/

@@ -1,0 +1,13 @@
+path: /Users/macos/Documents/ML/DIYBikeMaintainance/segmentation_split
+train: train/images
+val: val/images
+test: test/images
+
+names:
+  0: DIY-Bike-Maintenance
+  1: bike-back-wheel
+  2: engine-casing-left
+  3: engine-casing-right
+  4: engine-oil-cap
+  5: engine-oil-window
+  6: side-stand-down
